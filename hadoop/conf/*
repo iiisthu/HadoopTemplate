@@ -1,0 +1,44 @@
+[GLOBAL]
+config.path: /home/ubuntu/hadoop/etc/hadoop
+core.site.template.path: ${config.path}/core-site.xml.template 
+yarn.site.template.path: ${config.path}/yarn-site.xml.template 
+mapred.site.template.path: ${config.path}/mapred-site.xml.template 
+hadoop.data.path: /home/ubuntu/hadoop_data
+slaves.path: ${config.path}/slaves
+
+[CORE_SITE]
+namenode=hdfs-50.iiis.co.
+io.file.buffer.size=131072
+
+
+[YARN_SITE]
+yarn.resourcemanager.address = 192.168.111.12
+yarn.resourcemanager.webapp.address= ${yarn.resourcemanager.address}
+yarn.web-proxy.address=${yarn.resourcemanager.address}
+yarn.nodemanager.local-dirs=${GLOBAL:hadoop.data.path}/tmp
+yarn.nodemanager.log-dirs=${GLOBAL:hadoop.data.path}/log
+yarn.nodemanager.aux-services=mapreduce_shuffle
+yarn.nodemanager.resource.memory-mb=1024
+yarn.scheduler.maximum-allocation-mb=820
+yarn.scheduler.minimum-allocation-mb=512
+yarn.nodemanager.resource.cpu-vcores=4
+yarn.nodemanager.vmem-pmem-ratio=10
+yarn.log-aggregation-enable=true
+
+[MAPRED_SITE]
+mapreduce.framework.name=yarn
+mapreduce.jobtracker.http.address=${YARN_SITE:yarn.resourcemanager.address}
+mapreduce.jobhistory.address=${mapreduce.jobtracker.http.address}
+mapreduce.jobhistory.webapp.address=${mapreduce.jobtracker.http.address}
+yarn.app.mapreduce.am.resource.mb=1024
+yarn.app.mapreduce.am.command-opts=-Xmx820m
+mapreduce.map.java.opts=-Xmx820m
+mapreduce.reduce.java.opts=-Xmx820m
+mapreduce.map.memory.mb=1024
+mapreduce.map.cpu.vcores=1
+mapreduce.reduce.cpu.vcores=1
+mapreduce.reduce.memory.mb=1024
+mapreduce.task.io.sort.mb=512
+
+[SLAVES]
+slaves=192.168.111.12,192.168.111.119
