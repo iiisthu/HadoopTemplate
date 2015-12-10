@@ -18,6 +18,15 @@ then
 	exit
 fi
 echo "Success: Finish syncup /etc/hosts..."
+echo "Progress Info: Start building ~/.ssh/known_hosts..."
+bash /home/ubuntu/essentials/add_known_host.sh
+if [ $? != 0  ]
+then
+	echo "Failure: Building ssh known_hosts..."
+	exit
+fi
+echo "Success: Finish building ~/.ssh/known_hosts..."
+
 echo "Progress Info: Start syncup hadoop configs..."
 python /home/ubuntu/essentials/sync_hadoop.py
 if [ $? != 0  ]

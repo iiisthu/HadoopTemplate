@@ -1,7 +1,9 @@
 from fabric import tasks,state
 from fabric.api import *
 import sys
-
+# syncup networking essentials
+known_hosts= "/home/ubuntu/.ssh/known_hosts"
+resolv_hosts = "/etc/resolv.conf"
 # syncup hadoop config files
 hadoop_home="/home/ubuntu/hadoop"
 hadoop_conf="%s/conf/conf.ini"%hadoop_home
@@ -28,7 +30,9 @@ files.append(hadoop_template_yarn)
 files.append(hadoop_template_core)
 files.append(hadoop_template_mapred)
 files.append(bashrc)
+files.append(known_hosts)
 files.append(hadoop_env)
+files.append(resolv_hosts)
 dirs=[]
 dirs.append(essential_scripts)
 commands=[]
